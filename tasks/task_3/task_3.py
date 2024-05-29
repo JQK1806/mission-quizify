@@ -68,11 +68,11 @@ class DocumentProcessor:
                 # https://python.langchain.com/docs/modules/data_connection/document_loaders/pdf#using-pypdf
                 # You will need to figure out how to use PyPDFLoader to process the temporary file.
                 loader = PyPDFLoader(temp_file_path)
-                document = loader.load()
+                document = loader.load_and_split()
                 
                 # Step 3: Then, Add the extracted pages to the 'pages' list.
                 #####################################
-                self.pages.extend(document.pages)
+                self.pages.extend(document)
                 
                 # Clean up by deleting the temporary file.
                 os.unlink(temp_file_path)
