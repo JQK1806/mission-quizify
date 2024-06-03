@@ -101,6 +101,10 @@ class ChromaCollectionCreator:
         else:
             st.error("Chroma Collection has not been created!", icon="🚨")
 
+
+    def as_retriever(self):
+        return self.db.as_retriever()
+
 if __name__ == "__main__":
     processor = DocumentProcessor() # Initialize from Task 3
     processor.ingest_documents()
