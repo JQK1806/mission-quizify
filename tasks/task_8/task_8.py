@@ -125,15 +125,20 @@ class QuizGenerator:
 
         for _ in range(self.num_questions):
             ##### YOUR CODE HERE #####
-            question_str = self.generate_question_with_vectorstore()
-            
+            question = None
+            retries = 3
+            while not question and retries > 0:
+                question_str = self.generate_question_with_vectorstore()
             ##### YOUR CODE HERE #####
-            try:
+                try:
                 # Convert the JSON String to a dictionary
-                question = json.loads(question_str)
-            except json.JSONDecodeError:
-                print("Failed to decode question JSON.")
-                continue  # Skip this iteration if JSON decoding fails
+                    question = json.loads(question_str)
+                except json.JSONDecodeError:
+                    print("Failed to decode question JSON. Retrying...")
+                    retries -= 1  # Skip this iteration if JSON decoding fails
+            if not question:
+                print("Failed to generate question after retires.")
+                continue
             ##### YOUR CODE HERE #####
 
             ##### YOUR CODE HERE #####
